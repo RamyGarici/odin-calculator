@@ -34,7 +34,36 @@ function calculate(){
            if(operator == "/"){currentValue= divide(currentValue,secondValue)}
            secondValue = null;
            operator = null;
-           screen.textContent = "";
+           screen.textContent = currentValue;
     }
 
+}
+
+function clicking(x) {
+    if (x === '.') {
+        clearScreen();
+        return;
+    }
+
+    if (!isNaN(x)) {
+        if (operator === null) {
+            if (currentValue === null) currentValue = x;
+            else currentValue = currentValue * 10 + x;
+            screen.textContent = currentValue;
+        } else {
+            if (secondValue === null) secondValue = x;
+            else secondValue = secondValue * 10 + x;
+            screen.textContent = `${currentValue} ${operator} ${secondValue}`;
+        }
+    } 
+    else if (x === '=') {
+        calculate();
+    } 
+    else {
+        if (currentValue !== null) {
+            if (secondValue !== null) calculate();
+            operator = x;
+            screen.textContent = `${currentValue} ${operator}`;
+        }
+    }
 }
